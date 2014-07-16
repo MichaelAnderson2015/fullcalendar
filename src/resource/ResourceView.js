@@ -628,12 +628,23 @@ function ResourceView(element, calendar, viewName) {
 	
 	function dateCell(date) {
 		var col,year,month,day,cmpDate,cmpYear,cmpMonth,cmpDay, weekends = opt('weekends');
+        numberOfWeeks = opt('numberOfWeeks');
 		if (viewName == 'resourceDay') {
 			col = timeOfDayCol(date);
 		}
 		else {
-			col = Math.round((cloneDate(date, true)-t.visStart)/1000/60/60/24); //  TODO: handle weekends: false
+			adjustment = 2*(numberOfWeeks-1);
+            col = Math.round((cloneDate(date, true)-t.visStart)/1000/60/60/24);
+            if (col > Math.max(7*(numberOfWeeks-1)-2,0)) {
+                col = col - adjustment
+            }
 		}
+
+        if (col > (numberOfWeeks * 5) - 1) {
+            col =  (numberOfWeeks * 5) - 1;
+        }
+
+
 		return { col: col };
 	}
 
