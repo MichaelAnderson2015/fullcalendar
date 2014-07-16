@@ -343,16 +343,20 @@ function Calendar(element, options, eventSources, resourceSources) {
 			// ... will call reportEvents
 			// ... which will call renderEvents
 	}
-	
+
 	function refetchResources() {
 		fetchResources(false, currentView);
 
 		// remove current view
-		//var viewName = currentView.name;
-		//currentView = false;
-		
+		var viewName = currentView.name;
+        currentView.element.remove();
+
+		currentView = false;
+
 		// show view with new resources
-		//changeView(viewName);
+		changeView(viewName);
+
+        renderView();
 	}
 
 	
