@@ -84,6 +84,7 @@ function ResourceView(element, calendar, viewName) {
 	var clearOverlays = t.clearOverlays;
 	var formatDate = calendar.formatDate;
 	var getResources = t.getResources;
+
 	
 	// locals
 	var table;
@@ -288,6 +289,17 @@ function ResourceView(element, calendar, viewName) {
 		var id;
 
 		html += "<tbody>";
+
+        if (rowCnt == 0) {
+            html += "<tr><td class='fc-resourceName'>No resources to show </td>";
+            for (col=0; col<colCnt; col++) {
+				date = indexDate(col);
+				html += buildCellHTML(date);
+			}
+
+            html += "</tr>";
+        }
+
 
 		for (row=0; row<rowCnt; row++) {
 			id = resources[row]['id'];
