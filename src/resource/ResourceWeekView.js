@@ -14,6 +14,7 @@ function ResourceWeekView(element, calendar) {
 	var renderBasic = t.renderBasic;
 	var formatDates = calendar.formatDates;
 	var getResources = t.getResources;
+    var skipHiddenDays = t.skipHiddenDays;
 	
 	
 	function render(date, delta) {
@@ -34,10 +35,12 @@ function ResourceWeekView(element, calendar) {
 		var visStart = cloneDate(start);
 		var visEnd = cloneDate(end);
 		var weekends = opt('weekends');
-		if (!weekends) {
-			skipWeekend(visStart);
-			skipWeekend(visEnd, -1, true);
-		}
+		//if (!weekends) {
+		//	skipWeekend(visStart);
+		//	skipWeekend(visEnd, -1, true);
+		//}
+        skipHiddenDays(visStart);
+        skipHiddenDays(visEnd, -1, true);
 		t.title = formatDates(
 			visStart,
 			addDays(cloneDate(visEnd), -1),
